@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {WebApplicationTest.class, BeanConfig.class})
+@SpringBootTest(classes = {WebApplicationTest.class, BeanConfig.class, PassengerController.class})
 public class PassengerControllerTest {
 
     @Autowired

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,6 +69,6 @@ public class PassengerRepositoryTest {
         Page<Passenger> paged = repository.findAll(PageRequest.of(0
                 , 10
                 , Sort.by(Sort.Order.asc("name"))));
-        paged.get().forEach(passenger -> System.out.println(passenger.toString()));
+        paged.get().forEach(passenger -> System.out.println(passenger.getName()));
     }
 }
