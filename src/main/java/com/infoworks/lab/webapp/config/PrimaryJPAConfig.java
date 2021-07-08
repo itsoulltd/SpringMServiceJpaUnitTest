@@ -21,7 +21,7 @@ import javax.sql.DataSource;
 @EnableJpaRepositories(
         basePackages = {"com.infoworks.lab.domain.repositories"}
 )
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:mysql-db.properties")
 public class PrimaryJPAConfig {
 
     @Value("${spring.datasource.driver-class-name}")
