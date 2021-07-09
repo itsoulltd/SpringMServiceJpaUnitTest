@@ -22,7 +22,7 @@ import java.util.Objects;
 @SpringBootTest(classes = {TestJPAConfig.class})
 @Transactional
 @TestPropertySource(locations = {"classpath:h2-db.properties"})
-public class PassengerRepositoryTest {
+public class PassengerRepositoryUnitTest {
 
     @Autowired
     PassengerRepository repository;

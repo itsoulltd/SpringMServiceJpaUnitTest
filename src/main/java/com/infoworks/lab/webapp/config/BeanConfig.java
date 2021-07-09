@@ -1,8 +1,10 @@
 package com.infoworks.lab.webapp.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.infoworks.lab.domain.entities.Passenger;
 import com.infoworks.lab.jsql.ExecutorType;
 import com.infoworks.lab.jsql.JsqlConfig;
+import com.infoworks.lab.rest.models.Message;
 import com.it.soul.lab.data.simple.SimpleDataSource;
 import com.it.soul.lab.sql.SQLExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,11 @@ public class BeanConfig {
     @Bean("passengerDatasource")
     public SimpleDataSource<String, Passenger> getPassengerDatasource(){
         return new SimpleDataSource<>();
+    }
+
+    @Bean
+    ObjectMapper getMapper(){
+        return Message.getJsonSerializer();
     }
 
 }

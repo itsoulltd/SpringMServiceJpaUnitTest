@@ -5,9 +5,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackages = {"com.infoworks.lab.controllers"})
+@ComponentScan(basePackages = {"com.infoworks.lab.controllers"
+        , "com.infoworks.lab.services"})
 public class WebApplicationTest {
     @Test
     public void contextLoads() {
+        System.out.println("ApplicationContext Loaded Successfully");
     }
 }
