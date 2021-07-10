@@ -28,7 +28,7 @@ public class PassengerRepositoryUnitTest {
     PassengerRepository repository;
 
     @Test
-    public void insertPassenger(){
+    public void insert(){
         Passenger passenger = new Passenger("Sayed The Coder", Gender.MALE, 24);
         repository.save(passenger);
 
@@ -42,17 +42,17 @@ public class PassengerRepositoryUnitTest {
     }
 
     @Test
-    public void updatePassenger(){
+    public void update(){
         //TODO
     }
 
     @Test
-    public void deletePassenger(){
+    public void delete(){
         //TODO
     }
 
     @Test
-    public void countPassenger(){
+    public void count(){
         //
         Passenger passenger = new Passenger("Sayed The Coder", Gender.MALE, 24);
         repository.save(passenger);
@@ -62,7 +62,7 @@ public class PassengerRepositoryUnitTest {
     }
 
     @Test
-    public void fetchPassenger(){
+    public void fetch(){
         //
         repository.save(new Passenger("Sayed The Coder", Gender.MALE, 24));
         repository.save(new Passenger("Evan The Pankha Coder", Gender.MALE, 24));
