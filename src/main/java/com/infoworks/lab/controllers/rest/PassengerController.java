@@ -1,8 +1,11 @@
 package com.infoworks.lab.controllers.rest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.infoworks.lab.domain.entities.Passenger;
 import com.infoworks.lab.rest.models.ItemCount;
 import com.infoworks.lab.services.iServices.iPassengerService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,9 +16,18 @@ import java.util.List;
 public class PassengerController {
 
     private iPassengerService service;
+    private ObjectMapper mapper;
 
-    public PassengerController(iPassengerService service) {
+    public PassengerController(iPassengerService service, ObjectMapper mapper) {
         this.service = service;
+        this.mapper = mapper;
+    }
+
+    @GetMapping("/hello")
+    public ResponseEntity<String> getHello() throws JsonProcessingException {
+        ItemCount count = new ItemCount();
+        count.setCount(12l);
+        return ResponseEntity.ok(mapper.writeValueAsString(count));
     }
 
     @GetMapping("/rowCount")

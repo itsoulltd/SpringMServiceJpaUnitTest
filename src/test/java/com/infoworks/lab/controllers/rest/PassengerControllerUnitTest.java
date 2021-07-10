@@ -22,11 +22,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK,
@@ -53,6 +52,21 @@ public class PassengerControllerUnitTest {
     PassengerController controller;
 
     @Test
+    public void helloGetTest() throws Exception {
+        //Call controller to make the save:
+        MvcResult result = mockMvc.perform(get("/passenger/hello")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk())
+                .andReturn();
+        String str = "Status: " + result.getResponse().getStatus();
+        System.out.println(str);
+        String responseBody = result.getResponse().getContentAsString();
+        System.out.println(responseBody);
+        //
+    }
+
+    @Test
     public void happyPathTest() throws Exception {
         //Defining Mock Object:
         Passenger aPassenger = new Passenger("Towhid", Gender.MALE, 36);
@@ -60,7 +74,6 @@ public class PassengerControllerUnitTest {
         when(service.add(any(Passenger.class))).thenReturn(aPassenger);
 
         //Call controller to make the save:
-        //Passenger nPassenger = controller.insert(aPassenger);
         MvcResult result = mockMvc.perform(post("/passenger")
                 .accept(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsBytes(aPassenger))
@@ -72,5 +85,18 @@ public class PassengerControllerUnitTest {
         //
     }
 
+    @Test
+    public void rowCountGetTest() throws Exception {
+        //Call controller to make the save:
+        MvcResult result = mockMvc.perform(get("/passenger/rowCount")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                //.andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+        String str = "Status: " + result.getResponse().getStatus();
+        System.out.println(str);
+        //
+    }
 
 }
