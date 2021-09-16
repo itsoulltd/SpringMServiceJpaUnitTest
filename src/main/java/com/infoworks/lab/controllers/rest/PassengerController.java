@@ -39,7 +39,7 @@ public class PassengerController {
 
     @GetMapping
     public List<Passenger> query(@RequestParam("limit") Integer size
-            , @RequestParam("offset") Integer page){
+            , @RequestParam("page") Integer page){
         //TODO: Test with RestExecutor
         List<Passenger> passengers = service.findAll(page, size);
         return passengers;
