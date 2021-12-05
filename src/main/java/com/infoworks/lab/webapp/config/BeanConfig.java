@@ -33,7 +33,7 @@ public class BeanConfig {
 
     @Bean("JDBConnectionPool")
     @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.TARGET_CLASS)
-    SQLExecutor executor() {
+    SQLExecutor executor() throws Exception {
         SQLExecutor exe = (SQLExecutor) getJsqlConfig().create(ExecutorType.SQL, appDBNameKey());
         System.out.println("Created DB Connections.");
         return exe;
