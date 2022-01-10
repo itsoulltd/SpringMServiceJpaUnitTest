@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.infoworks.lab.domain.entities.Passenger;
 import com.infoworks.lab.rest.models.ItemCount;
-import com.infoworks.lab.services.iServices.iPassengerService;
+import com.infoworks.lab.services.iServices.PassengerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,10 +15,10 @@ import java.util.List;
 @RequestMapping("/passenger")
 public class PassengerController {
 
-    private iPassengerService service;
+    private PassengerService service;
     private ObjectMapper mapper;
 
-    public PassengerController(iPassengerService service, ObjectMapper mapper) {
+    public PassengerController(PassengerService service, ObjectMapper mapper) {
         this.service = service;
         this.mapper = mapper;
     }

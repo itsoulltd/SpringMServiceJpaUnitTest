@@ -2,19 +2,22 @@ package com.infoworks.lab.services.impl;
 
 import com.infoworks.lab.domain.entities.Passenger;
 import com.infoworks.lab.domain.repositories.PassengerRepository;
-import com.infoworks.lab.services.iServices.iPassengerService;
+import com.infoworks.lab.services.iServices.PassengerService;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class PassengerService implements iPassengerService {
+public class PassengerServiceImpl implements PassengerService {
 
     private PassengerRepository repository;
 
-    public PassengerService(PassengerRepository repository) {
+    public PassengerServiceImpl(PassengerRepository repository) {
+        this.repository = repository;
+    }
+
+    @Override
+    public void setPassengerRepository(PassengerRepository repository) {
         this.repository = repository;
     }
 

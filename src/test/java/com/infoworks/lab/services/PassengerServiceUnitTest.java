@@ -3,7 +3,8 @@ package com.infoworks.lab.services;
 import com.infoworks.lab.domain.entities.Gender;
 import com.infoworks.lab.domain.entities.Passenger;
 import com.infoworks.lab.domain.repositories.PassengerRepository;
-import com.infoworks.lab.services.impl.PassengerService;
+import com.infoworks.lab.services.iServices.PassengerService;
+import com.infoworks.lab.services.impl.PassengerServiceImpl;
 import com.infoworks.lab.webapp.config.TestJPAConfig;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +33,7 @@ public class PassengerServiceUnitTest {
     PassengerRepository repository;
 
     @InjectMocks
-    PassengerService service;
+    PassengerService service = new PassengerServiceImpl(repository);
 
     @Test
     public void happyPathTest(){

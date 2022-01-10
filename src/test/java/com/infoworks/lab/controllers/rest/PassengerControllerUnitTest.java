@@ -3,7 +3,7 @@ package com.infoworks.lab.controllers.rest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.infoworks.lab.domain.entities.Gender;
 import com.infoworks.lab.domain.entities.Passenger;
-import com.infoworks.lab.services.iServices.iPassengerService;
+import com.infoworks.lab.services.iServices.PassengerService;
 import com.infoworks.lab.webapp.WebApplicationTest;
 import com.infoworks.lab.webapp.config.BeanConfig;
 import com.infoworks.lab.webapp.config.TestJPAConfig;
@@ -47,7 +47,7 @@ public class PassengerControllerUnitTest {
     ObjectMapper mapper;
 
     @MockBean
-    iPassengerService service;
+    PassengerService service;
 
     @InjectMocks
     PassengerController controller;

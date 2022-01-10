@@ -1,10 +1,15 @@
 package com.infoworks.lab.services.iServices;
 
 import com.infoworks.lab.domain.entities.Passenger;
+import com.infoworks.lab.domain.repositories.PassengerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface iPassengerService {
+@Service
+public interface PassengerService {
+    void setPassengerRepository(@Autowired PassengerRepository repository);
     Passenger add(Passenger aPassenger);
     Passenger update(Passenger aPassenger);
     boolean remove(Integer userid);
