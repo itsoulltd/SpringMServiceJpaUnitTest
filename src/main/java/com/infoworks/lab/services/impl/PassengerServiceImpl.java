@@ -4,10 +4,12 @@ import com.infoworks.lab.domain.entities.Passenger;
 import com.infoworks.lab.domain.repositories.PassengerRepository;
 import com.infoworks.lab.services.iServices.PassengerService;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class PassengerServiceImpl implements PassengerService {
 
     private PassengerRepository repository;
