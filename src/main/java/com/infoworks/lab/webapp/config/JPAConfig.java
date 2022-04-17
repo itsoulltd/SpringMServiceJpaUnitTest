@@ -6,12 +6,12 @@ import com.it.soul.lab.sql.SQLExecutor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -69,13 +69,13 @@ public class JPAConfig {
     }
 
     @Primary @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource){
-        final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource);
-        em.setPackagesToScan(new String[]{"com.infoworks.lab.domain.entities"});
-        em.setPersistenceUnitName(persistenceUnitName);
-        em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        return em;
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(
+            EntityManagerFactoryBuilder builder, DataSource dataSource){
+        return builder
+                .dataSource(dataSource)
+                .packages("com.infoworks.lab.domain.entities")
+                .persistenceUnit(persistenceUnitName)
+                .build();
     }
 
     @Primary @Bean

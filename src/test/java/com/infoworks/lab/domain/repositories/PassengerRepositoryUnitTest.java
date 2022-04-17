@@ -2,7 +2,7 @@ package com.infoworks.lab.domain.repositories;
 
 import com.infoworks.lab.domain.entities.Gender;
 import com.infoworks.lab.domain.entities.Passenger;
-import com.infoworks.lab.webapp.config.TestJPAConfig;
+import com.infoworks.lab.webapp.config.TestJPAH2Config;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {TestJPAConfig.class})
+@SpringBootTest(classes = {TestJPAH2Config.class})
 @Transactional
 @TestPropertySource(locations = {"classpath:h2-db.properties"})
 public class PassengerRepositoryUnitTest {

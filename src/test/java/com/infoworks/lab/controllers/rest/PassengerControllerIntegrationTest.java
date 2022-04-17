@@ -6,7 +6,7 @@ import com.infoworks.lab.rest.models.ItemCount;
 import com.infoworks.lab.services.impl.PassengerServiceImpl;
 import com.infoworks.lab.webapp.WebApplicationTest;
 import com.infoworks.lab.webapp.config.BeanConfig;
-import com.infoworks.lab.webapp.config.TestJPAConfig;
+import com.infoworks.lab.webapp.config.TestJPAH2Config;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -22,7 +22,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {WebApplicationTest.class, PassengerController.class, PassengerServiceImpl.class, BeanConfig.class, TestJPAConfig.class})
+@SpringBootTest(classes = {WebApplicationTest.class, PassengerController.class, PassengerServiceImpl.class, BeanConfig.class, TestJPAH2Config.class})
 @TestPropertySource(locations = {"classpath:h2-db.properties"})
 public class PassengerControllerIntegrationTest {
 

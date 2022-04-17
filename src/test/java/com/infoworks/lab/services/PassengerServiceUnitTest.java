@@ -5,7 +5,7 @@ import com.infoworks.lab.domain.entities.Passenger;
 import com.infoworks.lab.domain.repositories.PassengerRepository;
 import com.infoworks.lab.services.iServices.PassengerService;
 import com.infoworks.lab.services.impl.PassengerServiceImpl;
-import com.infoworks.lab.webapp.config.TestJPAConfig;
+import com.infoworks.lab.webapp.config.TestJPAH2Config;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +21,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = {TestJPAConfig.class})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = {TestJPAH2Config.class})
 public class PassengerServiceUnitTest {
 
     @Before
