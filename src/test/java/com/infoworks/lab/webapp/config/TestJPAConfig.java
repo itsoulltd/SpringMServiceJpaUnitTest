@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
@@ -74,6 +75,7 @@ public class TestJPAConfig {
         em.setPackagesToScan(new String[]{"com.infoworks.lab.domain.entities"});
         em.setPersistenceUnitName(persistenceUnitName);
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        em.setJpaProperties(additionalProperties());
         return em;
     }
 
@@ -83,4 +85,12 @@ public class TestJPAConfig {
         return new JpaTransactionManager(entityManagerFactory);
     }
 
+    private Properties additionalProperties() {
+        final Properties hibernateProperties = new Properties();
+        hibernateProperties.setProperty("hibernate.generate-ddl", env.getProperty("spring.jpa.generate-ddl"));
+        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("spring.jpa.hibernate.ddl-auto"));
+        hibernateProperties.setProperty("hibernate.dialect", env.getProperty("spring.jpa.properties.hibernate.dialect"));
+        hibernateProperties.setProperty("hibernate.show_sql", env.getProperty("spring.jpa.show-sql"));
+        return hibernateProperties;
+    }
 }
