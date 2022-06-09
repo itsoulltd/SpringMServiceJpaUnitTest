@@ -3,6 +3,7 @@ package com.infoworks.lab.controllers.rest;
 import com.infoworks.lab.domain.entities.Gender;
 import com.infoworks.lab.domain.entities.Passenger;
 import com.infoworks.lab.rest.models.ItemCount;
+import com.infoworks.lab.services.ServiceExecutionLogger;
 import com.infoworks.lab.services.impl.PassengerServiceImpl;
 import com.infoworks.lab.webapp.WebApplicationTest;
 import com.infoworks.lab.webapp.config.BeanConfig;
@@ -14,6 +15,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.EnvironmentVariables;
 import org.junit.runner.RunWith;
+import org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,8 +27,9 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {WebApplicationTest.class
         , PassengerController.class, PassengerServiceImpl.class
-        , BeanConfig.class, TestJPAConfig.class})
-@TestPropertySource(locations = {"classpath:mysql-db.properties"})
+        , BeanConfig.class, TestJPAH2Config.class
+        , ServiceExecutionLogger.class, AnnotationAwareAspectJAutoProxyCreator.class})
+//@TestPropertySource(locations = {"classpath:h2-db.properties"})
 public class PassengerControllerIntegrationTest {
 
     @Value("${app.db.name}")

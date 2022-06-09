@@ -48,5 +48,6 @@ public class PassengerServiceUnitTest {
         assertNotNull(nPassenger);
         assertNotNull(nPassenger.getId());
         assertEquals("Towhid", nPassenger.getName());
+        System.out.println(nPassenger.marshallingToMap(true));
     }
 }
