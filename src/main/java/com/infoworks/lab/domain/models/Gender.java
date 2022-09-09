@@ -1,4 +1,4 @@
-package com.infoworks.lab.domain.entities;
+package com.infoworks.lab.domain.models;
 
 public enum Gender {
     MALE,

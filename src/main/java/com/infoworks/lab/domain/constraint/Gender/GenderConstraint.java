@@ -1,6 +1,6 @@
 package com.infoworks.lab.domain.constraint.Gender;
 
-import com.infoworks.lab.domain.entities.Gender;
+import com.infoworks.lab.domain.models.Gender;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
