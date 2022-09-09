@@ -17,7 +17,7 @@ import java.util.Objects;
 
 @Entity(name = "Passenger")
 @TableName(value = "Passenger")
-public class Passenger extends Auditable<Integer, String> {
+public class Passenger extends Auditable<Integer, Long> {
 
     @PrimaryKey(name="id", auto=true)
     @Id
