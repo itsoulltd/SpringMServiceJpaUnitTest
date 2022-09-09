@@ -2,11 +2,7 @@ package com.infoworks.lab.domain.entities;
 
 import com.infoworks.lab.domain.constraint.Gender.IsValidGender;
 import com.infoworks.lab.domain.models.Gender;
-import com.it.soul.lab.sql.SQLExecutor;
 import com.it.soul.lab.sql.entity.Ignore;
-import com.it.soul.lab.sql.entity.PrimaryKey;
-import com.it.soul.lab.sql.entity.TableName;
-import com.it.soul.lab.sql.query.models.Property;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -16,12 +12,9 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity(name = "Passenger")
-@TableName(value = "Passenger")
 public class Passenger extends Auditable<Integer, Long> {
 
-    @PrimaryKey(name="id", auto=true)
-    @Id
-    @Column(length = 100)
+    @Id @Column(length = 100)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id = 0;
 
@@ -33,7 +26,6 @@ public class Passenger extends Auditable<Integer, Long> {
 
     @Min(value = 18, message = "age min Value is 18.")
     private int age = 18;
-
 
     //@NotNull(message = "dob Must Not Null")
     //@Past(message = "Date Of Birth Must Be Greater Then Now")
@@ -120,11 +112,6 @@ public class Passenger extends Auditable<Integer, Long> {
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    public Property getPropertyTest(String key, SQLExecutor exe, boolean skipPrimary) {
-        return getProperty(key, exe, skipPrimary);
-
     }
 
 }

@@ -2,13 +2,10 @@ package com.infoworks.lab.domain.entities;
 
 import com.infoworks.lab.domain.constraint.Gender.IsValidGender;
 import com.infoworks.lab.domain.models.Gender;
-import com.it.soul.lab.sql.SQLExecutor;
-import com.it.soul.lab.sql.entity.Ignore;
-import com.it.soul.lab.sql.entity.PrimaryKey;
-import com.it.soul.lab.sql.entity.TableName;
-import com.it.soul.lab.sql.query.models.Property;
 
-import javax.persistence.*;
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Calendar;
@@ -16,15 +13,8 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity(name = "Person")
-@TableName(value = "Person")
-@AttributeOverride(name = "id", column = @Column(name = "personId"))
-public class Person extends Auditable<Integer, Long> {
-
-    @PrimaryKey(name="personId", auto=true)
-    @Id
-    @Column(length = 100)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer personId = 0;
+@AttributeOverride(name = "id", column = @Column(name = "person_id"))
+public class Person extends Auditable<Long, Long> {
 
     @NotNull(message = "name must not be null.")
     private String name;
@@ -35,19 +25,13 @@ public class Person extends Auditable<Integer, Long> {
     @Min(value = 18, message = "age min Value is 18.")
     private int age = 18;
 
-
     //@NotNull(message = "dob Must Not Null")
     //@Past(message = "Date Of Birth Must Be Greater Then Now")
     private Date dob = new java.sql.Date(new Date().getTime());
 
     private boolean active;
 
-    @Ignore
-    private static int _autoIncrement = -1;
-
-    public Person() {
-        this.personId = ++_autoIncrement;
-    }
+    public Person() {}
 
     public Person(@NotNull(message = "Name must not be null") String name
             , Gender sex
@@ -65,14 +49,6 @@ public class Person extends Auditable<Integer, Long> {
         int year = calendar.get(Calendar.YEAR) - ((isPositive) ? -age : age);
         calendar.set(Calendar.YEAR, year);
         setDob(calendar.getTime());
-    }
-
-    public Integer getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(Integer userId) {
-        this.personId = userId;
     }
 
     public int getAge() {
@@ -117,17 +93,12 @@ public class Person extends Auditable<Integer, Long> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person passenger = (Person) o;
-        return Objects.equals(personId, passenger.personId);
+        return Objects.equals(getId(), passenger.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(personId);
-    }
-
-    public Property getPropertyTest(String key, SQLExecutor exe, boolean skipPrimary) {
-        return getProperty(key, exe, skipPrimary);
-
+        return Objects.hash(getId());
     }
 
 }
