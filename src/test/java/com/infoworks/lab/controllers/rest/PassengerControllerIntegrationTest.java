@@ -1,13 +1,12 @@
 package com.infoworks.lab.controllers.rest;
 
-import com.infoworks.lab.domain.entities.Gender;
+import com.infoworks.lab.domain.models.Gender;
 import com.infoworks.lab.domain.entities.Passenger;
 import com.infoworks.lab.rest.models.ItemCount;
 import com.infoworks.lab.services.ServiceExecutionLogger;
 import com.infoworks.lab.services.impl.PassengerServiceImpl;
 import com.infoworks.lab.webapp.WebApplicationTest;
 import com.infoworks.lab.webapp.config.BeanConfig;
-import com.infoworks.lab.webapp.config.TestJPAConfig;
 import com.infoworks.lab.webapp.config.TestJPAH2Config;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,7 +18,6 @@ import org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProx
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;

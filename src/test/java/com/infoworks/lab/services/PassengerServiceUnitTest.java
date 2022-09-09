@@ -1,6 +1,6 @@
 package com.infoworks.lab.services;
 
-import com.infoworks.lab.domain.entities.Gender;
+import com.infoworks.lab.domain.models.Gender;
 import com.infoworks.lab.domain.entities.Passenger;
 import com.infoworks.lab.domain.repositories.PassengerRepository;
 import com.infoworks.lab.services.iServices.PassengerService;

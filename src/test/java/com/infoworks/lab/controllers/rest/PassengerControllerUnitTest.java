@@ -1,7 +1,7 @@
 package com.infoworks.lab.controllers.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infoworks.lab.domain.entities.Gender;
+import com.infoworks.lab.domain.models.Gender;
 import com.infoworks.lab.domain.entities.Passenger;
 import com.infoworks.lab.services.iServices.PassengerService;
 import com.infoworks.lab.webapp.WebApplicationTest;

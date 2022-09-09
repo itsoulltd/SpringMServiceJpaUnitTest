@@ -1,6 +1,6 @@
 package com.infoworks.lab.domain.repositories;
 
-import com.infoworks.lab.domain.entities.Gender;
+import com.infoworks.lab.domain.models.Gender;
 import com.infoworks.lab.domain.entities.Passenger;
 import com.infoworks.lab.webapp.config.TestJPAH2Config;
 import org.junit.Assert;
