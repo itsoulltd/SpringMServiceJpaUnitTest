@@ -1,6 +1,7 @@
 package com.infoworks.lab.domain.entities;
 
 import com.infoworks.lab.domain.constraint.Gender.IsValidGender;
+import com.infoworks.lab.domain.models.Gender;
 import com.it.soul.lab.sql.SQLExecutor;
 import com.it.soul.lab.sql.entity.Ignore;
 import com.it.soul.lab.sql.entity.PrimaryKey;
@@ -16,7 +17,7 @@ import java.util.Objects;
 
 @Entity(name = "Passenger")
 @TableName(value = "Passenger")
-public class Passenger extends com.it.soul.lab.sql.entity.Entity {
+public class Passenger extends Auditable<Integer, String> {
 
     @PrimaryKey(name="id", auto=true)
     @Id
