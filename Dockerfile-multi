@@ -1,0 +1,17 @@
+FROM maven:3.6.2-jdk-8-slim AS MAVEN_BUILD
+MAINTAINER lab.infoworks.com
+
+COPY pom.xml /build/
+COPY src /build/src/
+
+WORKDIR /build/
+RUN mvn clean package -DskipTests
+
+FROM openjdk:8
+MAINTAINER lab.infoworks.com
+
+COPY --from=MAVEN_BUILD /build/target/ROOT.jar ROOT.jar
+#ADD target/ROOT.jar ROOT.jar
+
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "ROOT.jar"]
