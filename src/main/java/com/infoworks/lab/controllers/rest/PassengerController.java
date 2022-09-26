@@ -31,10 +31,10 @@ public class PassengerController {
     }
 
     @GetMapping("/rowCount")
-    public ItemCount getRowCount(){
+    public ResponseEntity<String> getRowCount() throws JsonProcessingException {
         ItemCount count = new ItemCount();
         count.setCount(service.totalCount());
-        return count;
+        return ResponseEntity.ok(mapper.writeValueAsString(count));
     }
 
     @GetMapping
