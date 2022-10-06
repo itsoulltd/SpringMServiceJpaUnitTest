@@ -56,7 +56,7 @@ public class PassengerRepositoryUnitTest {
         //
         Passenger passenger = new Passenger("Sayed The Coder", Gender.MALE, 24);
         repository.save(passenger);
-
+        //
         long count = repository.count();
         Assert.assertTrue(count == 1);
     }
@@ -71,6 +71,22 @@ public class PassengerRepositoryUnitTest {
         Page<Passenger> paged = repository.findAll(PageRequest.of(0
                 , 10
                 , Sort.by(Sort.Order.asc("name"))));
+        Assert.assertTrue(!paged.getContent().isEmpty());
         paged.get().forEach(passenger -> System.out.println(passenger.getName()));
+    }
+
+    @Test
+    public void testNameContainsLike(){
+        //
+        repository.save(new Passenger("Sayed The Coder", Gender.MALE, 24));
+        repository.save(new Passenger("Evan The Pankha Coder", Gender.MALE, 24));
+        repository.save(new Passenger("Razib The Pagla", Gender.MALE, 26));
+        //
+        List<Passenger> paged = repository.findAllByContainNameLike("Pankha", 0, 10);
+        Assert.assertTrue(!paged.isEmpty());
+        paged.forEach(passenger -> System.out.println(passenger.getName()));
+        //
+        List<Passenger> notFound = repository.findAllByContainNameLike("qwe", 0, 10);
+        Assert.assertTrue(notFound.isEmpty());
     }
 }
