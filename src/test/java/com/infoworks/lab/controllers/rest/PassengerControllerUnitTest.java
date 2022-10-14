@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK,
         classes = {WebApplicationTest.class, TestJPAH2Config.class, BeanConfig.class})
 @AutoConfigureMockMvc(secure = false)
-@TestPropertySource(locations = "classpath:h2-db.properties")
+@TestPropertySource(locations = "classpath:application-h2db.properties")
 public class PassengerControllerUnitTest {
 
     @Before

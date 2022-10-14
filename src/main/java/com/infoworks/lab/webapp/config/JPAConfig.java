@@ -28,8 +28,8 @@ import java.util.Optional;
 @EnableJpaRepositories(
         basePackages = {"com.infoworks.lab.domain.repositories"}
 )
-@PropertySource("classpath:mysql-db.properties")
-@PropertySource("classpath:h2-db.properties")
+@PropertySource("classpath:application-mysql.properties")
+@PropertySource("classpath:application-h2db.properties")
 public class JPAConfig {
 
     private Environment env;

@@ -30,7 +30,7 @@ import java.util.List;
         , PassengerController.class, PassengerServiceImpl.class
         , BeanConfig.class, TestJPAH2Config.class
         , ServiceExecutionLogger.class, AnnotationAwareAspectJAutoProxyCreator.class})
-//@TestPropertySource(locations = {"classpath:h2-db.properties"})
+//@TestPropertySource(locations = {"classpath:application-h2db.properties"})
 public class PassengerControllerIntegrationTest {
 
     @Value("${app.db.name}")
