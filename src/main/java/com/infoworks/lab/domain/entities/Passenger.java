@@ -4,7 +4,7 @@ import com.infoworks.lab.domain.constraint.Gender.IsValidGender;
 import com.infoworks.lab.domain.models.Gender;
 import com.it.soul.lab.sql.entity.Ignore;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Calendar;
@@ -13,10 +13,6 @@ import java.util.Objects;
 
 @Entity(name = "Passenger")
 public class Passenger extends Auditable<Integer, Long> {
-
-    @Id @Column(length = 100)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id = 0;
 
     @NotNull(message = "name must not be null.")
     private String name;
@@ -34,11 +30,9 @@ public class Passenger extends Auditable<Integer, Long> {
     private boolean active;
 
     @Ignore
-    private static int _autoIncrement = -1;
+    private static Integer _autoIncrement = 0;
 
-    public Passenger() {
-        this.id = ++_autoIncrement;
-    }
+    public Passenger() {setId(_autoIncrement++);}
 
     public Passenger(@NotNull(message = "Name must not be null") String name
             , Gender sex
@@ -58,12 +52,6 @@ public class Passenger extends Auditable<Integer, Long> {
         setDob(calendar.getTime());
     }
 
-    public Integer getId() {
-        return id;
-    }
-    public void setId(Integer id) {
-        this.id = id;
-    }
     public int getAge() {
         return age;
     }
@@ -106,12 +94,12 @@ public class Passenger extends Auditable<Integer, Long> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Passenger passenger = (Passenger) o;
-        return Objects.equals(id, passenger.id);
+        return Objects.equals(getId(), passenger.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(getId());
     }
 
 }
