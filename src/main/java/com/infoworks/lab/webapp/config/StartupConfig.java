@@ -2,9 +2,8 @@ package com.infoworks.lab.webapp.config;
 
 import com.it.soul.lab.sql.SQLExecutor;
 import com.it.soul.lab.sql.entity.Entity;
-import com.it.soul.lab.sql.query.QueryType;
-import com.it.soul.lab.sql.query.SQLInsertQuery;
-import com.it.soul.lab.sql.query.SQLQuery;
+import com.it.soul.lab.sql.query.*;
+import com.it.soul.lab.sql.query.models.Predicate;
 import com.it.soul.lab.sql.query.models.Property;
 import com.it.soul.lab.sql.query.models.Row;
 import org.springframework.boot.CommandLineRunner;
@@ -44,6 +43,32 @@ public class StartupConfig implements CommandLineRunner {
                 .values(cols.toArray(new Property[0]))
                 .build();
         executor.executeInsert(Entity.isAutoID(entityType), batchSize, query, batch);
+    }
+
+    private void batchUpdateOn(Class<? extends Entity> entityType
+            , Predicate clause, int batchSize, List<Row> batch
+            , SQLExecutor executor) throws SQLException {
+        if (batch.isEmpty()) return;
+        if (batchSize <= 0) batchSize = 10;
+        List<Property> cols = batch.get(0).getProperties();
+        SQLUpdateQuery query = new SQLQuery.Builder(QueryType.UPDATE)
+                .set(cols.toArray(new Property[0]))
+                .from(entityType)
+                .where(clause)
+                .build();
+        executor.executeUpdate(batchSize, query, batch);
+    }
+
+    private void batchDeleteFrom(Class<? extends Entity> entityType
+            , Predicate clause, int batchSize, List<Row> batch
+            , SQLExecutor executor) throws SQLException {
+        if (batch.isEmpty()) return;
+        if (batchSize <= 0) batchSize = 10;
+        SQLDeleteQuery query = new SQLQuery.Builder(QueryType.DELETE)
+                .rowsFrom(entityType)
+                .where(clause)
+                .build();
+        executor.executeDelete(batchSize, query, batch);
     }
 
 }
