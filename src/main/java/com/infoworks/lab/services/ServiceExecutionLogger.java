@@ -20,6 +20,12 @@ public class ServiceExecutionLogger {
 
     @Around("execution(* com.infoworks.lab.services..*(..))")
     public Object profileAllMethods(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        //Measure method execution time
+        final StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        Object result = proceedingJoinPoint.proceed();
+        stopWatch.stop();
+
         //Get intercepted method details
         MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
         String className = methodSignature.getDeclaringType().getSimpleName();
@@ -28,12 +34,6 @@ public class ServiceExecutionLogger {
                 .map(val -> val.getSimpleName())
                 .collect(Collectors.toList());*/
         List<String> paramsName = Arrays.asList(methodSignature.getParameterNames());
-
-        //Measure method execution time
-        final StopWatch stopWatch = new StopWatch();
-        stopWatch.start();
-        Object result = proceedingJoinPoint.proceed();
-        stopWatch.stop();
 
         //Log method execution time
         LOG.info("Execution time of {}.{}({}) :: {} {}"
