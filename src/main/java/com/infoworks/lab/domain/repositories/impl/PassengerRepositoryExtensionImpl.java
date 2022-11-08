@@ -18,13 +18,14 @@ public class PassengerRepositoryExtensionImpl implements PassengerRepositoryExte
 
     @Override @Transactional(readOnly = true)
     public List<Passenger> findAllByContainNameLike(String like, int page, int size) {
-        /**
-         * pagination need to be implemented later!
-         * */
         Query query = em.createNativeQuery(
                 "SELECT em.* FROM Passenger as em "
                 + "WHERE em.name LIKE ?", Passenger.class);
         query.setParameter(1, "%" + like + "%");
+        if (page <= 0) page = 1;
+        query.setFirstResult((page - 1) * size);
+        query.setMaxResults(size);
         return query.getResultList();
     }
+
 }

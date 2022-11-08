@@ -8,12 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-@Transactional
+@Transactional(readOnly=true)
 public interface PassengerRepository extends JpaRepository<Passenger, Integer>, PassengerRepositoryExtension {
-
-    @Transactional(readOnly = true)
     List<Passenger> findByName(String name);
-
-    @Transactional(readOnly = true)
     long countByName(String name);
 }
