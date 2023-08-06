@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
@@ -30,7 +31,8 @@ import java.util.List;
         , PassengerController.class, PassengerServiceImpl.class
         , BeanConfig.class, TestJPAH2Config.class
         , ServiceExecutionLogger.class, AnnotationAwareAspectJAutoProxyCreator.class})
-//@TestPropertySource(locations = {"classpath:application-h2db.properties"})
+@TestPropertySource(locations = {"classpath:application-test.properties"
+        , "classpath:application-h2db.properties"})
 public class PassengerControllerIntegrationTest {
 
     @Value("${app.db.name}")
@@ -52,6 +54,11 @@ public class PassengerControllerIntegrationTest {
 
     @Autowired
     private PassengerController controller;
+
+    @Test
+    public void loadTest() {
+        System.out.println("Object Loaded: " + (controller != null ? "Yes" : "No"));
+    }
 
     @Test
     public void initiateTest(){
