@@ -10,7 +10,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.infoworks.lab</groupId>
-    <artifactId>data-jpa-unit-test</artifactId>
+    <artifactId>spring-mservice-jpa-unit-test</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
 
