@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 echo "Exporting Glowroot jar"
 if [ -d glowroot ]; then
-  echo "Directory exists"
+  echo "glowroot exists"
 else
   echo "Unzip glowroot-xxx.zip"
   unzip glowroot-0.13.6-dist.zip
@@ -14,7 +14,7 @@ echo -javaagent:$PWD/glowroot/glowroot.jar
 #export AGENT_GLOWROOT=/Users/$USER/Downloads/glowroot
 ##source ~/.bash_profile OR .zshrc
 #if [ -d AGENT_GLOWROOT ]; then
-#  echo "Directory exists"
+#  echo "glowroot exists"
 #else
 #  echo "Unzip glowroot-xxx.zip"
 #  unzip glowroot-0.13.6-dist.zip -d /Users/$USER/Downloads
