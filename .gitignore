@@ -35,3 +35,4 @@
 
 ###Project Specific
 **/node_modules/
+**/glowroot
