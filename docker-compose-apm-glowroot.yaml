@@ -1,0 +1,25 @@
+version: '3.5'
+
+networks:
+   web-app-net:
+       name: my-web-app-net
+       driver: bridge
+
+services:
+   webapp:
+      image: spring-microservice-starter:1.0
+      build:
+         context: .
+         dockerfile: Dockerfile-javaopts
+      environment:
+         management.endpoints.web.exposure.include: health,metrics,httptrace,prometheus
+         JAVA_OPTS: "-javaagent:/glowroot/glowroot.jar"
+      ports:
+         - 8089:8080
+      restart: on-failure
+      networks:
+         - web-app-net
+      volumes:
+         - ./apm/glowroot:/glowroot:rw   # Allow access to ./apm/glowroot with read-write permission
+
+##End of Scripts
