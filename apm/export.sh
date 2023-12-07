@@ -13,7 +13,12 @@ echo -javaagent:$PWD/glowroot/glowroot.jar
 ###Optional:
 #export AGENT_GLOWROOT=/Users/$USER/Downloads/glowroot
 ##source ~/.bash_profile OR .zshrc
-#unzip glowroot-0.13.6-dist.zip -d /Users/$USER/Downloads
+#if [ -d AGENT_GLOWROOT ]; then
+#  echo "Directory exists"
+#else
+#  echo "Unzip glowroot-xxx.zip"
+#  unzip glowroot-0.13.6-dist.zip -d /Users/$USER/Downloads
+#fi
 #echo 'Paste the following line as VM option to the mvn cmd'
 #echo -javaagent:$AGENT_GLOWROOT/glowroot.jar
 
