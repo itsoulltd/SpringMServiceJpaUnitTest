@@ -13,10 +13,10 @@ import java.time.LocalDate;
 @EntityListeners(AuditingEntityListener.class)
 public class Auditable<ID, VERSION> extends Persistable<ID, VERSION> {
 
-    @CreatedDate
+    @CreatedDate @Column(name = "created_date")
     LocalDate createdDate;
 
-    @LastModifiedDate
+    @LastModifiedDate @Column(name = "last_modified_date")
     LocalDate lastModifiedDate;
 
     @AttributeOverride(name = "username", column = @Column(name = "created_by"))

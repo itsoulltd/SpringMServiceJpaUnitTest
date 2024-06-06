@@ -1,5 +1,6 @@
 package com.infoworks.lab.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.it.soul.lab.sql.entity.Entity;
 
 import javax.persistence.*;
@@ -28,5 +29,14 @@ public class Persistable<ID,VERSION> extends Entity {
 
     public void setVersion(VERSION version) {
         this.version = version;
+    }
+
+    @JsonIgnore
+    public String getPrimaryKeyName() {
+        if (getClass().isAnnotationPresent(AttributeOverride.class)){
+            AttributeOverride attr = getClass().getAnnotation(AttributeOverride.class);
+            return attr.column().name();
+        }
+        return "id";
     }
 }
