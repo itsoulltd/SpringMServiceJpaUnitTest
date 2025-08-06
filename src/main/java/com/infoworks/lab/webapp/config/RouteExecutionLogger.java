@@ -3,6 +3,7 @@ package com.infoworks.lab.webapp.config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StopWatch;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -22,17 +23,15 @@ public class RouteExecutionLogger extends GenericFilterBean {
     public void doFilter(ServletRequest servletRequest
             , ServletResponse servletResponse
             , FilterChain filterChain) throws IOException, ServletException {
-        //Logging time between request and response:
-        long startTime = System.currentTimeMillis();
-        // Continue with the next filter or controller
+        //Elapsed time between request and response:
+        final StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
         filterChain.doFilter(servletRequest, servletResponse);
-        //Now log time elapsed:
-        long endTime = System.currentTimeMillis();
-        long requestTime = endTime - startTime;
+        stopWatch.stop();
         //Get the info from request & response:
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse res = (HttpServletResponse) servletResponse;
         LOG.info("{}:{} took {}ms and returned {}"
-                , req.getMethod(), req.getRequestURI(), requestTime, res.getStatus());
+                , req.getMethod(), req.getRequestURI(), stopWatch.getTotalTimeMillis(), res.getStatus());
     }
 }
