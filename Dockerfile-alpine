@@ -1,0 +1,9 @@
+FROM openjdk:8-jdk-alpine
+MAINTAINER lab.infoworks.com
+
+RUN addgroup -S infoworks && adduser -S jrunner -G infoworks
+USER jrunner:infoworks
+
+ADD target/ROOT.jar ROOT.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "ROOT.jar"]
