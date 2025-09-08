@@ -2,6 +2,8 @@ package com.infoworks.lab.domain.repositories;
 
 import com.infoworks.lab.domain.models.Gender;
 import com.infoworks.lab.domain.entities.Passenger;
+import com.infoworks.lab.webapp.WebApplicationTest;
+import com.infoworks.lab.webapp.config.BeanConfig;
 import com.infoworks.lab.webapp.config.TestJPAH2Config;
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,7 +21,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {TestJPAH2Config.class})
+@SpringBootTest(classes = {WebApplicationTest.class, BeanConfig.class, TestJPAH2Config.class})
 @Transactional
 @TestPropertySource(locations = {"classpath:application-h2db.properties"})
 public class PassengerRepositoryUnitTest {
@@ -28,13 +30,19 @@ public class PassengerRepositoryUnitTest {
     PassengerRepository repository;
 
     @Test
-    public void insert(){
+    public void initTest() {
+        Assert.assertNotNull(repository);
+        System.out.println("PassengerRepository loaded: " + repository);
+    }
+
+    @Test
+    public void insert() {
         Passenger passenger = new Passenger("Sayed The Coder", Gender.MALE, 24);
         repository.save(passenger);
-
+        //
         List<Passenger> list = repository.findByName("Sayed The Coder");
         Assert.assertTrue(Objects.nonNull(list));
-
+        //
         if (list != null && list.size() > 0){
             Passenger passenger2 = list.get(0);
             Assert.assertTrue(Objects.equals(passenger.getName(), passenger2.getName()));
@@ -42,18 +50,17 @@ public class PassengerRepositoryUnitTest {
     }
 
     @Test
-    public void update(){
+    public void update() {
         //TODO
     }
 
     @Test
-    public void delete(){
+    public void delete() {
         //TODO
     }
 
     @Test
-    public void count(){
-        //
+    public void count() {
         Passenger passenger = new Passenger("Sayed The Coder", Gender.MALE, 24);
         repository.save(passenger);
         //
@@ -62,8 +69,7 @@ public class PassengerRepositoryUnitTest {
     }
 
     @Test
-    public void fetch(){
-        //
+    public void fetch() {
         repository.save(new Passenger("Sayed The Coder", Gender.MALE, 24));
         repository.save(new Passenger("Evan The Pankha Coder", Gender.MALE, 24));
         repository.save(new Passenger("Razib The Pagla", Gender.MALE, 26));
@@ -76,8 +82,7 @@ public class PassengerRepositoryUnitTest {
     }
 
     @Test
-    public void testNameContainsLike(){
-        //
+    public void testNameContainsLike() {
         repository.save(new Passenger("Sayed The Coder", Gender.MALE, 24));
         repository.save(new Passenger("Evan The Pankha Coder", Gender.MALE, 24));
         repository.save(new Passenger("Razib The Pagla", Gender.MALE, 26));

@@ -64,7 +64,7 @@ public class PassengerControllerIntegrationTest {
     private PassengerController controller;
 
     @Test
-    public void initTest(){
+    public void initTest() {
         Assert.assertNotNull(applicationName);
         System.out.println("Application Name: " + applicationName);
     }
