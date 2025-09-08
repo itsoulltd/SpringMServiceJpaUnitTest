@@ -44,4 +44,28 @@ public class PassengerServiceUnitTest {
         Assert.assertNotNull(service);
         System.out.println("PassengerService injected: Yes");
     }
+
+    @Test
+    public void insert() {
+        Passenger passenger = new Passenger("Sayed The Coder", Gender.MALE, 24);
+        //Call controller to make the save:
+        Passenger nPassenger = service.add(passenger);
+        //Verify:
+        assertNotNull(nPassenger);
+        assertNotNull(nPassenger.getId());
+        assertEquals("Sayed The Coder", nPassenger.getName());
+        System.out.println(nPassenger.marshallingToMap(true));
+    }
+
+    @Test
+    public void update() {}
+
+    @Test
+    public void delete() {}
+
+    @Test
+    public void count() {}
+
+    @Test
+    public void fetch() {}
 }
