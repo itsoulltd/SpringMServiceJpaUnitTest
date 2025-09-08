@@ -41,13 +41,13 @@ public class PassengerControllerUnitTest {
     }
 
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @Autowired
-    ObjectMapper mapper;
+    private ObjectMapper mapper;
 
     @MockBean
-    PassengerService service;
+    private PassengerService service;
 
     /*@InjectMocks
     PassengerController controller;*/

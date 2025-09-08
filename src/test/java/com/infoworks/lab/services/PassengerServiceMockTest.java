@@ -29,10 +29,10 @@ public class PassengerServiceMockTest {
     }
 
     @Mock
-    PassengerRepository repository;
+    private PassengerRepository repository;
 
     @InjectMocks
-    PassengerService service = new PassengerServiceImpl(repository);
+    private PassengerService service = new PassengerServiceImpl(repository);
 
     @Test
     public void mockPassengerTest() {

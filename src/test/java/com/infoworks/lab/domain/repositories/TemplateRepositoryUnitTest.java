@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class TemplateRepositoryUnitTest {
 
     @Autowired /*@Qualifier("<bean-name>")*/ /*Or replace JpaRepository with actual @Repository declaration.*/
-    JpaRepository repository;
+    private JpaRepository repository;
 
     @Test
     public void initTest() {

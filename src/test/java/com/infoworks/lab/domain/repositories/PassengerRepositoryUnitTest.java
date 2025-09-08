@@ -27,7 +27,7 @@ import java.util.Objects;
 public class PassengerRepositoryUnitTest {
 
     @Autowired
-    PassengerRepository repository;
+    private PassengerRepository repository;
 
     @Test
     public void initTest() {
