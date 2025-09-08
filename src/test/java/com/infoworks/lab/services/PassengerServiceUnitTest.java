@@ -18,10 +18,10 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {WebApplicationTest.class, ServiceExecutionLogger.class, AnnotationAwareAspectJAutoProxyCreator.class
@@ -64,8 +64,36 @@ public class PassengerServiceUnitTest {
     public void delete() {}
 
     @Test
-    public void count() {}
+    public void count() {
+        Passenger passenger = new Passenger("Sayed The Coder", Gender.MALE, 24);
+        service.add(passenger);
+        //
+        long count = service.totalCount();
+        Assert.assertTrue(count == 1);
+    }
 
     @Test
-    public void fetch() {}
+    public void fetch() {
+        service.add(new Passenger("Sayed The Coder", Gender.MALE, 24));
+        service.add(new Passenger("Evan The Pankha Coder", Gender.MALE, 24));
+        service.add(new Passenger("Razib The Pagla", Gender.MALE, 26));
+        //
+        List<Passenger> paged = service.findAll(0, 10);
+        Assert.assertTrue(!paged.isEmpty());
+        paged.forEach(passenger -> System.out.println(passenger.getName()));
+    }
+
+    @Test
+    public void testSearchByName() {
+        service.add(new Passenger("Sayed The Coder", Gender.MALE, 24));
+        service.add(new Passenger("Evan The Pankha Coder", Gender.MALE, 24));
+        service.add(new Passenger("Razib The Pagla", Gender.MALE, 26));
+        //
+        List<Passenger> paged = service.searchByName("Pankha", 0, 10);
+        Assert.assertTrue(!paged.isEmpty());
+        paged.forEach(passenger -> System.out.println(passenger.getName()));
+        //
+        List<Passenger> notFound = service.searchByName("qwe", 0, 10);
+        Assert.assertTrue(notFound.isEmpty());
+    }
 }

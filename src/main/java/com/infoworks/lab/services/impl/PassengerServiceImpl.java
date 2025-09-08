@@ -63,4 +63,9 @@ public class PassengerServiceImpl implements PassengerService {
     public List<Passenger> findAll(Integer page, Integer size) {
         return repository.findAll(PageRequest.of(page, size)).getContent();
     }
+
+    @Override
+    public List<Passenger> searchByName(String likeQuery, int page, int size) {
+        return repository.findAllByContainNameLike(likeQuery, page, size);
+    }
 }

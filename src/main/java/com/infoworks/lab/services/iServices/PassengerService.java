@@ -15,4 +15,5 @@ public interface PassengerService {
     Passenger findByUserID(Integer userid);
     List<Passenger> findAllByUserID(List<Integer> userid);
     List<Passenger> findAll(Integer page, Integer size);
+    List<Passenger> searchByName(String likeQuery, int page, int size);
 }
