@@ -6,6 +6,7 @@
 [Configuring Separate Spring DataSource for UnitTesting](https://www.baeldung.com/spring-testing-separate-data-source)
 
 ### Spring JPA-Hibernate Transaction Management:
+[Spring Daa JPA: Query Projection](https://thorben-janssen.com/spring-data-jpa-query-projections/)
 [Spring Transaction Best Practices](https://vladmihalcea.com/spring-transaction-best-practices/)
 [Effective Spring Transaction Management](https://dzone.com/articles/spring-transaction-management)
 
