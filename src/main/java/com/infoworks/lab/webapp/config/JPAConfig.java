@@ -1,11 +1,13 @@
 package com.infoworks.lab.webapp.config;
 
 import com.infoworks.lab.domain.entities.Username;
+import com.infoworks.lab.webapp.config.tenancy.SchemaMultiTenantConnectionProvider;
+import com.infoworks.lab.webapp.config.tenancy.TenantIdentifierResolver;
 import com.infoworks.sql.executor.SQLExecutor;
+import org.hibernate.MultiTenancyStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.*;
@@ -21,6 +23,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Configuration
@@ -75,11 +79,21 @@ public class JPAConfig {
 
     @Primary @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
-            EntityManagerFactoryBuilder builder, DataSource dataSource){
+            EntityManagerFactoryBuilder builder
+            , DataSource dataSource
+            , TenantIdentifierResolver resolver
+            , SchemaMultiTenantConnectionProvider provider){
+        //Multi-Tenancy props:
+        Map<String, Object> props = new HashMap<>();
+        props.put(org.hibernate.cfg.Environment.MULTI_TENANT, MultiTenancyStrategy.SCHEMA);
+        props.put(org.hibernate.cfg.Environment.MULTI_TENANT_IDENTIFIER_RESOLVER, resolver);
+        props.put(org.hibernate.cfg.Environment.MULTI_TENANT_CONNECTION_PROVIDER, provider);
+        //
         return builder
                 .dataSource(dataSource)
                 .packages("com.infoworks.lab.domain.entities")
                 .persistenceUnit(persistenceUnitName)
+                //.properties(props) //TODO
                 .build();
     }
 
