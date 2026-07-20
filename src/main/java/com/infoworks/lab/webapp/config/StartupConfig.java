@@ -1,11 +1,11 @@
 package com.infoworks.lab.webapp.config;
 
-import com.it.soul.lab.sql.SQLExecutor;
-import com.it.soul.lab.sql.entity.Entity;
-import com.it.soul.lab.sql.query.*;
-import com.it.soul.lab.sql.query.models.Predicate;
-import com.it.soul.lab.sql.query.models.Property;
-import com.it.soul.lab.sql.query.models.Row;
+import com.infoworks.entity.Entity;
+import com.infoworks.orm.Property;
+import com.infoworks.orm.Row;
+import com.infoworks.sql.executor.SQLExecutor;
+import com.infoworks.sql.query.*;
+import com.infoworks.sql.query.models.Predicate;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.ContextRefreshedEvent;

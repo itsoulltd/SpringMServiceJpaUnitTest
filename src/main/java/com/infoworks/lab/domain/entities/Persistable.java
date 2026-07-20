@@ -1,18 +1,17 @@
 package com.infoworks.lab.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.it.soul.lab.sql.entity.Entity;
-
+import com.infoworks.entity.Entity;
 import javax.persistence.*;
 
 @MappedSuperclass
-public class Persistable<ID,VERSION> extends Entity {
+public class Persistable<ID, VERSION> extends Entity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private ID id;
 
-    @Version
+    @Version @JsonIgnore
     private VERSION version;
 
     public ID getId() {

@@ -3,7 +3,7 @@ package com.infoworks.lab.controllers.rest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.infoworks.lab.domain.entities.Passenger;
-import com.infoworks.lab.rest.models.ItemCount;
+import com.infoworks.lab.domain.models.ItemCount;
 import com.infoworks.lab.services.iServices.PassengerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

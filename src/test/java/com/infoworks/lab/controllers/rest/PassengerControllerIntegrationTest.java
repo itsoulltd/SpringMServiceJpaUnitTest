@@ -2,13 +2,13 @@ package com.infoworks.lab.controllers.rest;
 
 import com.infoworks.lab.domain.entities.Passenger;
 import com.infoworks.lab.domain.models.Gender;
-import com.infoworks.lab.rest.models.ItemCount;
-import com.infoworks.lab.rest.models.Message;
+import com.infoworks.lab.domain.models.ItemCount;
 import com.infoworks.lab.services.ServiceExecutionLogger;
 import com.infoworks.lab.services.impl.PassengerServiceImpl;
 import com.infoworks.lab.webapp.WebApplicationTest;
 import com.infoworks.lab.webapp.config.BeanConfig;
 import com.infoworks.lab.webapp.config.TestJPAH2Config;
+import com.infoworks.objects.MessageParser;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -80,7 +80,7 @@ public class PassengerControllerIntegrationTest {
         controller.insert(new Passenger("Sayed The Coder", Gender.MALE, 24));
         //
         ResponseEntity<String> res = controller.getRowCount();
-        ItemCount count = Message.unmarshal(ItemCount.class, res.getBody());
+        ItemCount count = MessageParser.unmarshal(ItemCount.class, res.getBody());
         System.out.println(count.getCount());
     }
 
@@ -91,7 +91,7 @@ public class PassengerControllerIntegrationTest {
         controller.insert(new Passenger("Razib The Pagla", Gender.MALE, 26));
         //
         ResponseEntity<String> res = controller.getRowCount();
-        ItemCount count = Message.unmarshal(ItemCount.class, res.getBody());
+        ItemCount count = MessageParser.unmarshal(ItemCount.class, res.getBody());
         int size = Long.valueOf(count.getCount()).intValue();
         List<Passenger> items = controller.query(size, 0);
         items.stream().forEach(passenger -> System.out.println(passenger.getName()));

@@ -54,7 +54,7 @@ public class PassengerServiceUnitTest {
         assertNotNull(nPassenger);
         assertNotNull(nPassenger.getId());
         assertEquals("Sayed The Coder", nPassenger.getName());
-        System.out.println(nPassenger.marshallingToMap(true));
+        System.out.println(nPassenger.marshalling(true));
     }
 
     @Test

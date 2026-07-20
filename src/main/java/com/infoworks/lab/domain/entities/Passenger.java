@@ -2,7 +2,7 @@ package com.infoworks.lab.domain.entities;
 
 import com.infoworks.lab.domain.constraint.Gender.IsValidGender;
 import com.infoworks.lab.domain.models.Gender;
-import com.it.soul.lab.sql.entity.Ignore;
+import com.infoworks.objects.Ignore;
 
 import javax.persistence.Entity;
 import javax.validation.constraints.Min;

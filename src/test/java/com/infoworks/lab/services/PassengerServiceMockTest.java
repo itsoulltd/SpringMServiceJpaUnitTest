@@ -47,6 +47,6 @@ public class PassengerServiceMockTest {
         assertNotNull(nPassenger);
         assertNotNull(nPassenger.getId());
         assertEquals("Gregory", nPassenger.getName());
-        System.out.println(nPassenger.marshallingToMap(true));
+        System.out.println(nPassenger.marshalling(true));
     }
 }

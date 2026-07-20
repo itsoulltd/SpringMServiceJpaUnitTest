@@ -1,9 +1,9 @@
 package com.infoworks.lab.webapp.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.infoworks.data.impl.SimpleDataSource;
 import com.infoworks.lab.domain.entities.Passenger;
-import com.infoworks.lab.rest.models.Message;
-import com.it.soul.lab.data.simple.SimpleDataSource;
+import com.infoworks.objects.MessageParser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,7 +22,7 @@ public class BeanConfig {
 
     @Bean
     ObjectMapper getMapper(){
-        return Message.getJsonSerializer();
+        return MessageParser.getJsonSerializer();
     }
 
 }

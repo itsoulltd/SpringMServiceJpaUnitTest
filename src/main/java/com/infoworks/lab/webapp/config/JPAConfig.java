@@ -1,9 +1,9 @@
 package com.infoworks.lab.webapp.config;
 
 import com.infoworks.lab.domain.entities.Username;
-import com.infoworks.lab.jsql.ExecutorType;
-import com.infoworks.lab.jsql.JsqlConfig;
-import com.it.soul.lab.sql.SQLExecutor;
+import com.infoworks.sql.executor.SQLExecutor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -17,6 +17,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.context.WebApplicationContext;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -32,6 +33,7 @@ import java.util.Optional;
 @PropertySource("classpath:application-h2db.properties")
 public class JPAConfig {
 
+    private static Logger LOG = LoggerFactory.getLogger(JPAConfig.class);
     private Environment env;
 
     public JPAConfig(Environment env) {
@@ -50,14 +52,11 @@ public class JPAConfig {
     String persistenceUnitName;
 
     @Bean
-    JsqlConfig getJsqlConfig(DataSource dataSource){
-        return new JsqlConfig(dataSource);
-    }
-
-    @Bean @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.TARGET_CLASS)
-    SQLExecutor executor(JsqlConfig config) throws Exception {
-        SQLExecutor exe = (SQLExecutor) config.create(ExecutorType.SQL, env.getProperty("app.db.name"));
-        System.out.println("Created DB Connections.");
+    @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+    //Since SQLExecutor is a WebApplicationContext.SCOPE_REQUEST Variable, it will automatically close connection when garbage-collected.
+    public SQLExecutor executor(DataSource dataSource) throws Exception {
+        SQLExecutor exe = new SQLExecutor(dataSource.getConnection());
+        LOG.info("Executor-Connection Has been Created.");
         return exe;
     }
 

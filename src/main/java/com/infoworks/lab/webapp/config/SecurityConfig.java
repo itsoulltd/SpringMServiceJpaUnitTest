@@ -1,6 +1,6 @@
 package com.infoworks.lab.webapp.config;
 
-import com.it.soul.lab.connect.DriverClass;
+import com.infoworks.connect.JDBCDriverClass;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.authorizeRequests().anyRequest().authenticated(); //enable to restrict all
                 .authorizeRequests().antMatchers("/**").permitAll(); //enable to open all
         //Disable for H2 DB:
-        if (activeDriverClass.equalsIgnoreCase(DriverClass.H2_EMBEDDED.toString())){
+        if (activeDriverClass.equalsIgnoreCase(JDBCDriverClass.H2_EMBEDDED.toString())){
             http.headers().frameOptions().disable();
         }
     }
