@@ -51,6 +51,12 @@
             <artifactId>h2</artifactId>
             <version>1.4.200</version>
         </dependency>
+        <!-- PostgresQL -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.3</version>
+        </dependency>
         <!-- Spring Framework Dependency -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

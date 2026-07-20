@@ -29,6 +29,7 @@ import java.util.Optional;
 @EnableJpaRepositories(
         basePackages = {"com.infoworks.lab.domain.repositories"}
 )
+@PropertySource("classpath:application-pgsql.properties")
 @PropertySource("classpath:application-mysql.properties")
 @PropertySource("classpath:application-h2db.properties")
 public class JPAConfig {

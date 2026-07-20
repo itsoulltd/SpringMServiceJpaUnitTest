@@ -1,0 +1,44 @@
+version: '3.5'
+
+networks:
+   web-app-net:
+       name: my-web-app-net
+       #driver: overlay
+       driver: bridge
+
+volumes:
+   postgres_data:
+   pgadmin-storage:
+
+services:
+  postgres-db:
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: testDB
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root@123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - web-app-net
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: myapp@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: root@123
+    ports:
+      - "5050:80"
+    restart: on-failure
+    networks:
+      - web-app-net
+    depends_on:
+      - postgres-db
+    volumes:
+      - pgadmin-storage:/var/lib/pgadmin
+
+#Use host.docker.internal instead of localhost for the PgAdmin HostName/Address running inside the Docker
+##End of Scripts
