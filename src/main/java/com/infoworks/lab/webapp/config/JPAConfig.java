@@ -1,5 +1,6 @@
 package com.infoworks.lab.webapp.config;
 
+import com.infoworks.connect.JDBCDriverClass;
 import com.infoworks.lab.domain.entities.Username;
 import com.infoworks.lab.webapp.config.tenancy.MultiplexConnectionProvider;
 import com.infoworks.lab.webapp.config.tenancy.TenantIdentifierResolver;
@@ -55,6 +56,8 @@ public class JPAConfig {
     String password;
     @Value("${app.db.name}")
     String persistenceUnitName;
+    @Value("${app.db.multi.tenancy.enabled}")
+    String multiTenancyEnabled;
 
     @Bean
     @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -85,10 +88,16 @@ public class JPAConfig {
             , MultiplexConnectionProvider provider){
         //Multi-Tenancy props:
         Map<String, Object> props = new HashMap<>();
-        props.put(org.hibernate.cfg.Environment.MULTI_TENANT, MultiTenancyStrategy.SCHEMA);
-        props.put(org.hibernate.cfg.Environment.MULTI_TENANT_IDENTIFIER_RESOLVER, resolver);
-        props.put(org.hibernate.cfg.Environment.MULTI_TENANT_CONNECTION_PROVIDER, provider);
-        //
+        if (Boolean.parseBoolean(multiTenancyEnabled)) {
+            //Check for enabling schema or database based multi-tenancy:
+            if (driverClassName.equalsIgnoreCase(JDBCDriverClass.MYSQL.toString())) {
+                props.put(org.hibernate.cfg.Environment.MULTI_TENANT, MultiTenancyStrategy.DATABASE);
+            } else {
+                props.put(org.hibernate.cfg.Environment.MULTI_TENANT, MultiTenancyStrategy.SCHEMA);
+            }
+            props.put(org.hibernate.cfg.Environment.MULTI_TENANT_IDENTIFIER_RESOLVER, resolver);
+            props.put(org.hibernate.cfg.Environment.MULTI_TENANT_CONNECTION_PROVIDER, provider);
+        }
         return builder
                 .dataSource(dataSource)
                 .packages("com.infoworks.lab.domain.entities")
