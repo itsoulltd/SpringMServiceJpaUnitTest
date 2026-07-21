@@ -63,16 +63,16 @@ public class MultiplexConnectionProvider implements MultiTenantConnectionProvide
         //And when releasing the connection, restore the default schema:
         String db = connection.getMetaData().getDatabaseProductName();
         if ("PostgreSQL".equals(db)) {
-            connection.setSchema("public");
+            connection.setSchema("public"); // or your application's default schema
         } else if ("H2".equals(db)) {
-            connection.setSchema("public");
+            connection.setSchema("public"); // or your application's default schema
         } else if ("Oracle".equals(db)) {
             try (Statement stmt = connection.createStatement()) {
                 stmt.execute("ALTER SESSION SET CURRENT_SCHEMA = SYSTEM"); // or your application's default schema
             }
         } else if ("MySQL".equals(db)) {
             /*try (Statement stmt = connection.createStatement()) {
-                stmt.execute("USE <default-database>"); // your application's default database
+                stmt.execute("USE <default-database>"); // or your application's default database
             }*/
         }
         connection.close();
