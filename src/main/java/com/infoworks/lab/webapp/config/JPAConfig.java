@@ -1,7 +1,7 @@
 package com.infoworks.lab.webapp.config;
 
 import com.infoworks.lab.domain.entities.Username;
-import com.infoworks.lab.webapp.config.tenancy.MultiplexTenantConnectionProvider;
+import com.infoworks.lab.webapp.config.tenancy.MultiplexConnectionProvider;
 import com.infoworks.lab.webapp.config.tenancy.TenantIdentifierResolver;
 import com.infoworks.sql.executor.SQLExecutor;
 import org.hibernate.MultiTenancyStrategy;
@@ -82,7 +82,7 @@ public class JPAConfig {
             EntityManagerFactoryBuilder builder
             , DataSource dataSource
             , TenantIdentifierResolver resolver
-            , MultiplexTenantConnectionProvider provider){
+            , MultiplexConnectionProvider provider){
         //Multi-Tenancy props:
         Map<String, Object> props = new HashMap<>();
         props.put(org.hibernate.cfg.Environment.MULTI_TENANT, MultiTenancyStrategy.SCHEMA);

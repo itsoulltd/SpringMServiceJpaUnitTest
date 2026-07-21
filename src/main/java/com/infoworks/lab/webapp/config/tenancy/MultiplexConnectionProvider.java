@@ -8,11 +8,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 @Component
-public class MultiplexTenantConnectionProvider implements MultiTenantConnectionProvider {
+public class MultiplexConnectionProvider implements MultiTenantConnectionProvider {
 
     private DataSource dataSource;
 
-    public MultiplexTenantConnectionProvider(DataSource dataSource) {
+    public MultiplexConnectionProvider(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
