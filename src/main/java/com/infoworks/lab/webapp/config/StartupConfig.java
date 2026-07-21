@@ -1,11 +1,13 @@
 package com.infoworks.lab.webapp.config;
 
+import com.infoworks.connect.JDBCDriverClass;
 import com.infoworks.entity.Entity;
 import com.infoworks.orm.Property;
 import com.infoworks.orm.Row;
 import com.infoworks.sql.executor.SQLExecutor;
 import com.infoworks.sql.query.*;
 import com.infoworks.sql.query.models.Predicate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -17,6 +19,12 @@ import java.util.List;
 
 @Component
 public class StartupConfig implements CommandLineRunner {
+
+    @Value("${server.port}") String serverPort;
+    @Value("${spring.datasource.driver-class-name}") String activeDriverClass;
+    @Value("${spring.h2.console.enabled}") Boolean isH2ConsoleEnabled;
+    @Value("${spring.h2.console.path}") String h2ConsolePath;
+
 
     @EventListener
     public void handleContextStartedListener(ContextRefreshedEvent event){
@@ -31,6 +39,11 @@ public class StartupConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         System.out.println("Startup Done...");
+        System.out.println(String.format("http://localhost:%s/swagger-ui.html", serverPort));
+        if (activeDriverClass.equalsIgnoreCase(JDBCDriverClass.H2_EMBEDDED.toString())
+                && isH2ConsoleEnabled){
+            System.out.println(String.format("http://localhost:%s%s", serverPort, h2ConsolePath));
+        }
     }
 
     private void batchInsertInto(Class<? extends Entity> entityType
