@@ -93,7 +93,7 @@ public class JPAConfig {
                 .dataSource(dataSource)
                 .packages("com.infoworks.lab.domain.entities")
                 .persistenceUnit(persistenceUnitName)
-                //.properties(props) //TODO
+                .properties(props)
                 .build();
     }
 
