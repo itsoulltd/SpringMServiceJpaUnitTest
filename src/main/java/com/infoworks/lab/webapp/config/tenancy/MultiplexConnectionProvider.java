@@ -41,7 +41,7 @@ public class MultiplexConnectionProvider implements MultiTenantConnectionProvide
         if ("PostgreSQL".equals(db)) {
             connection.setSchema(tenantIdentifier);
         } else if ("H2".equals(db)) {
-            connection.setSchema(tenantIdentifier.toUpperCase());
+            connection.setSchema(tenantIdentifier);
         } else if ("Oracle".equals(db)) {
             //Since, not all oracle jdbc driver implements setSchema(...) ( available from Oracle 12c+)
             //A more universally compatible approach is:
