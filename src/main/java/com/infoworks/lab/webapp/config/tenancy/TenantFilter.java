@@ -16,11 +16,14 @@ public class TenantFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request
             , HttpServletResponse response
             , FilterChain chain) throws ServletException, IOException {
-        //
+        //Read tenant-id from http-headers:
         String tenant = request.getHeader("X-Tenant");
-        if (tenant == null) tenant = "public";
+        if (tenant != null) {
+            //Validate the tenant against a known list or mapping first:
+            //TODO:
+        }
         TenantContext.setTenant(tenant);
-        //
+        //Passing request to filter-chain:
         try {
             chain.doFilter(request, response);
         } finally {
