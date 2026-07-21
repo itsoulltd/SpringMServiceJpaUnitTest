@@ -49,9 +49,9 @@ public class MultiplexConnectionProvider implements MultiTenantConnectionProvide
                 stmt.execute("ALTER SESSION SET CURRENT_SCHEMA = " + tenantIdentifier); //CAUTION: SQL-INJECTION
             }
         } else if ("MySQL".equals(db)) {
-            try (Statement stmt = connection.createStatement()) {
+            /*try (Statement stmt = connection.createStatement()) {
                 stmt.execute("USE " + tenantIdentifier); //CAUTION: SQL-INJECTION
-            }
+            }*/
         } else {
             throw new SQLException("Unsupported database: " + db);
         }
@@ -71,9 +71,9 @@ public class MultiplexConnectionProvider implements MultiTenantConnectionProvide
                 stmt.execute("ALTER SESSION SET CURRENT_SCHEMA = SYSTEM"); // or your application's default schema
             }
         } else if ("MySQL".equals(db)) {
-            try (Statement stmt = connection.createStatement()) {
-                //stmt.execute("USE <default-database>"); // your application's default database
-            }
+            /*try (Statement stmt = connection.createStatement()) {
+                stmt.execute("USE <default-database>"); // your application's default database
+            }*/
         }
         connection.close();
     }
