@@ -65,7 +65,7 @@ public class MultiplexConnectionProvider implements MultiTenantConnectionProvide
         if ("PostgreSQL".equals(db)) {
             connection.setSchema("public");
         } else if ("H2".equals(db)) {
-            connection.setSchema("PUBLIC");
+            connection.setSchema("public");
         } else if ("Oracle".equals(db)) {
             try (Statement stmt = connection.createStatement()) {
                 stmt.execute("ALTER SESSION SET CURRENT_SCHEMA = SYSTEM"); // or your application's default schema
