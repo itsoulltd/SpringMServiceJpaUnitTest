@@ -8,11 +8,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 @Component
-public class SchemaMultiTenantConnectionProvider implements MultiTenantConnectionProvider {
+public class MultiplexTenantConnectionProvider implements MultiTenantConnectionProvider {
 
     private DataSource dataSource;
 
-    public SchemaMultiTenantConnectionProvider(DataSource dataSource) {
+    public MultiplexTenantConnectionProvider(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -29,6 +29,13 @@ public class SchemaMultiTenantConnectionProvider implements MultiTenantConnectio
     @Override
     public Connection getConnection(String tenantIdentifier) throws SQLException {
         Connection connection = getAnyConnection();
+        /**
+         * Not all databases support schema based multi-tenancy.
+         * PostgreSql, Oracle, H2DB(v1.4.200+) supports Hibernate's SCHEMA multi-tenancy (MultiTenancyStrategy.SCHEMA).
+         * For such databases, jdbc::conn.setSchema(...) will works.
+         * In other cases, like MySql is schemas-as-databases and supports only MultiTenancyStrategy.DATABASE.
+         * have to use 'USE database' or a separate DataSource per database.
+         */
         connection.setSchema(tenantIdentifier);
         return connection;
     }
