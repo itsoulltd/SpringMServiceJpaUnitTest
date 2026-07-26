@@ -1,6 +1,7 @@
 package com.infoworks.lab.webapp.config.tenancy;
 
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -12,9 +13,12 @@ import java.sql.Statement;
 public class MultiplexConnectionProvider implements MultiTenantConnectionProvider {
 
     private DataSource dataSource;
+    private String defaultTenant;
 
-    public MultiplexConnectionProvider(DataSource dataSource) {
+    public MultiplexConnectionProvider(DataSource dataSource
+            , @Value("${app.db.schema.default}") String defaultTenant) {
         this.dataSource = dataSource;
+        this.defaultTenant = defaultTenant;
     }
 
     @Override
@@ -63,9 +67,9 @@ public class MultiplexConnectionProvider implements MultiTenantConnectionProvide
         //And when releasing the connection, restore the default schema:
         String db = connection.getMetaData().getDatabaseProductName();
         if ("PostgreSQL".equals(db)) {
-            connection.setSchema("public"); // or your application's default schema
+            connection.setSchema(defaultTenant); // or your application's default schema
         } else if ("H2".equals(db)) {
-            connection.setSchema("public"); // or your application's default schema
+            connection.setSchema(defaultTenant); // or your application's default schema
         } else if ("Oracle".equals(db)) {
             try (Statement stmt = connection.createStatement()) {
                 stmt.execute("ALTER SESSION SET CURRENT_SCHEMA = SYSTEM"); // or your application's default schema
