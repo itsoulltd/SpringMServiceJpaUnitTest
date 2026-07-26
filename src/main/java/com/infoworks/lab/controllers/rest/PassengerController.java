@@ -97,27 +97,36 @@ public class PassengerController {
     @Resource(name = "executor")
     private QueryExecutor executor;
 
-    /*@ApiOperation(
-            value = "SearchQuery Examples",
-            //operators = {"EQUAL", "NOTEQUAL", "LIKE", "NOT_LIKE", "GREATER_THAN", "GREATER_THAN_OR_EQUAL", "LESS_THAN", "LESS_THAN_OR_EQUAL"},
-            notes = "Example request:\n" +
-                    "{\n" +
-                    "  \"descriptors\": [],\n" +
-                    "  \"page\": 0,\n" +
-                    "  \"payload\": \"string\",\n" +
-                    "  \"properties\": [\n" +
-                    "    {\n" +
-                    "      \"key\": \"age\",\n" +
-                    "      \"logic\": \"AND\",\n" +
-                    "      \"nextKey\": null,\n" +
-                    "      \"operator\": \"GREATER_THAN_OR_EQUAL\",\n" +
-                    "      \"type\": \"INT\",\n" +
-                    "      \"value\": \"21\"\n" +
-                    "    }\n" +
-                    "  ],\n" +
-                    "  \"size\": 10\n" +
-                    "}"
-    )*/
+    /**
+     Example = "SearchQuery.java",
+     Operators = {"EQUAL", "NOTEQUAL", "LIKE", "NOT_LIKE", "GREATER_THAN", "GREATER_THAN_OR_EQUAL", "LESS_THAN", "LESS_THAN_OR_EQUAL"},
+     Notes = """
+     {
+         "descriptors": [],
+         "page": 0,
+         "payload": "string",
+         "properties": [
+             {
+                 "key": "age",
+                 "logic": "AND",
+                 "nextKey": "name",
+                 "operator": "GREATER_THAN_OR_EQUAL",
+                 "type": "INT",
+                 "value": "20"
+             },
+             {
+                 "key": "name",
+                 "logic": "AND",
+                 "nextKey": "null",
+                 "operator": "LIKE",
+                 "type": "STRING",
+                 "value": "%ha%"
+             }
+         ],
+         "size": 10
+     }
+     """
+     */
     @PostMapping("/search")
     public List<Passenger> search(@RequestBody SearchQuery query
             , @RequestHeader(value = "X-Tenant", required = false) String tenant) {
