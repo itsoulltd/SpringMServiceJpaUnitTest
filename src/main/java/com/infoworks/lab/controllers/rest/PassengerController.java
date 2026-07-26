@@ -7,6 +7,7 @@ import com.infoworks.lab.domain.models.ItemCount;
 import com.infoworks.lab.services.iServices.PassengerService;
 import com.infoworks.sql.executor.QueryExecutor;
 import com.infoworks.sql.query.pagination.SearchQuery;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,10 +22,14 @@ public class PassengerController {
 
     private PassengerService service;
     private ObjectMapper mapper;
+    private String defaultTenant;
 
-    public PassengerController(PassengerService service, ObjectMapper mapper) {
+    public PassengerController(PassengerService service
+            , ObjectMapper mapper
+            , @Value("${app.db.schema.default}") String defaultTenant) {
         this.service = service;
         this.mapper = mapper;
+        this.defaultTenant = defaultTenant;
     }
 
     @GetMapping("/hello")
@@ -35,7 +40,9 @@ public class PassengerController {
     }
 
     @GetMapping("/rowCount")
-    public ResponseEntity<String> getRowCount() throws JsonProcessingException {
+    public ResponseEntity<String> getRowCount(@RequestHeader(value = "X-Tenant", required = false) String tenant)
+            throws JsonProcessingException {
+        tenant = (tenant != null) ? tenant : defaultTenant;
         ItemCount count = new ItemCount();
         count.setStatus(200);
         count.setCount(service.totalCount());
@@ -45,8 +52,10 @@ public class PassengerController {
     @GetMapping
     public List<Passenger> fetch(
             @RequestParam(value = "limit", defaultValue = "10", required = false) Integer limit
-            , @RequestParam(value = "page", defaultValue = "0", required = false) Integer page){
+            , @RequestParam(value = "page", defaultValue = "0", required = false) Integer page
+            , @RequestHeader(value = "X-Tenant", required = false) String tenant){
         //TODO: Test with RestExecutor
+        tenant = (tenant != null) ? tenant : defaultTenant;
         if (limit < 0) limit = 10;
         if (page < 0) page = 0;
         List<Passenger> passengers = service.findAll(page, limit);
@@ -54,22 +63,28 @@ public class PassengerController {
     }
 
     @PostMapping
-    public Passenger insert(@Valid @RequestBody Passenger passenger){
+    public Passenger insert(@Valid @RequestBody Passenger passenger
+            , @RequestHeader(value = "X-Tenant", required = false) String tenant){
         //TODO: Test with RestExecutor
+        tenant = (tenant != null) ? tenant : defaultTenant;
         Passenger nPassenger = service.add(passenger);
         return nPassenger;
     }
 
     @PutMapping
-    public Passenger update(@Valid @RequestBody Passenger passenger){
+    public Passenger update(@Valid @RequestBody Passenger passenger
+            , @RequestHeader(value = "X-Tenant", required = false) String tenant){
         //TODO: Test with RestExecutor
+        tenant = (tenant != null) ? tenant : defaultTenant;
         Passenger old = service.update(passenger);
         return old;
     }
 
     @DeleteMapping
-    public Boolean delete(@RequestParam("userid") Integer userid){
+    public Boolean delete(@RequestParam("userid") Integer userid
+            , @RequestHeader(value = "X-Tenant", required = false) String tenant){
         //TODO: Test with RestExecutor
+        tenant = (tenant != null) ? tenant : defaultTenant;
         boolean deleted = service.remove(userid);
         return deleted;
     }
@@ -82,8 +97,10 @@ public class PassengerController {
     private QueryExecutor executor;
 
     @PostMapping("/search")
-    public List<Passenger> search(@RequestBody SearchQuery query) {
+    public List<Passenger> search(@RequestBody SearchQuery query
+            , @RequestHeader(value = "X-Tenant", required = false) String tenant) {
         //
+        tenant = (tenant != null) ? tenant : defaultTenant;
         int limit = query.getSize();
         if (limit <= 0) limit = 10;
         List<Passenger> users = null;

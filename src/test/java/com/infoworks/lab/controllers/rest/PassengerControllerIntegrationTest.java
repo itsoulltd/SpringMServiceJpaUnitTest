@@ -60,6 +60,9 @@ public class PassengerControllerIntegrationTest {
     @Value("${app.db.name}")
     private String dbName;
 
+    @Value("${app.db.schema.default}")
+    private String schema;
+
     @Autowired
     private PassengerController controller;
 
@@ -77,23 +80,23 @@ public class PassengerControllerIntegrationTest {
 
     @Test
     public void count() throws IOException {
-        controller.insert(new Passenger("Sayed The Coder", Gender.MALE, 24));
+        controller.insert(new Passenger("Sayed The Coder", Gender.MALE, 24), schema);
         //
-        ResponseEntity<String> res = controller.getRowCount();
+        ResponseEntity<String> res = controller.getRowCount(schema);
         ItemCount count = MessageParser.unmarshal(ItemCount.class, res.getBody());
         System.out.println(count.getCount());
     }
 
     @Test
     public void query() throws IOException {
-        controller.insert(new Passenger("Sayed The Coder", Gender.MALE, 24));
-        controller.insert(new Passenger("Evan The Pankha Coder", Gender.MALE, 24));
-        controller.insert(new Passenger("Razib The Pagla", Gender.MALE, 26));
+        controller.insert(new Passenger("Sayed The Coder", Gender.MALE, 24), schema);
+        controller.insert(new Passenger("Evan The Pankha Coder", Gender.MALE, 24), schema);
+        controller.insert(new Passenger("Razib The Pagla", Gender.MALE, 26), schema);
         //
-        ResponseEntity<String> res = controller.getRowCount();
+        ResponseEntity<String> res = controller.getRowCount(schema);
         ItemCount count = MessageParser.unmarshal(ItemCount.class, res.getBody());
         int size = Long.valueOf(count.getCount()).intValue();
-        List<Passenger> items = controller.fetch(size, 0);
+        List<Passenger> items = controller.fetch(size, 0, schema);
         items.stream().forEach(passenger -> System.out.println(passenger.getName()));
     }
 
