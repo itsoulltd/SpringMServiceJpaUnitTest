@@ -5,10 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.infoworks.lab.domain.entities.Passenger;
 import com.infoworks.lab.domain.models.ItemCount;
 import com.infoworks.lab.services.iServices.PassengerService;
+import com.infoworks.sql.executor.QueryExecutor;
+import com.infoworks.sql.query.pagination.SearchQuery;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -39,10 +43,13 @@ public class PassengerController {
     }
 
     @GetMapping
-    public List<Passenger> query(@RequestParam("limit") Integer size
-            , @RequestParam("page") Integer page){
+    public List<Passenger> fetch(
+            @RequestParam(value = "limit", defaultValue = "10", required = false) Integer limit
+            , @RequestParam(value = "page", defaultValue = "0", required = false) Integer page){
         //TODO: Test with RestExecutor
-        List<Passenger> passengers = service.findAll(page, size);
+        if (limit < 0) limit = 10;
+        if (page < 0) page = 0;
+        List<Passenger> passengers = service.findAll(page, limit);
         return passengers;
     }
 
@@ -65,6 +72,30 @@ public class PassengerController {
         //TODO: Test with RestExecutor
         boolean deleted = service.remove(userid);
         return deleted;
+    }
+
+    /**
+     * Example of inject @Scope beans.
+     * e.g. @RequestScope bean SQLExecutor to do JDBC-Calls to database.
+     */
+    @Resource(name = "executor")
+    private QueryExecutor executor;
+
+    @PostMapping("/search")
+    public List<Passenger> search(@RequestBody SearchQuery query) {
+        //
+        int limit = query.getSize();
+        if (limit <= 0) limit = 10;
+        List<Passenger> users = null;
+        try {
+            users = Passenger.read(Passenger.class, executor, query.getPredicate());
+        } catch (Exception e) {}
+        //
+        limit = users.size() > limit ? limit : users.size();
+        users = (users != null && users.size() > 0)
+                ? users.subList(0, limit)
+                : new ArrayList<>();
+        return users;
     }
 
 }

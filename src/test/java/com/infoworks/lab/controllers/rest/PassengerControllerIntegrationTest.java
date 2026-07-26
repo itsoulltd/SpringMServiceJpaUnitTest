@@ -93,7 +93,7 @@ public class PassengerControllerIntegrationTest {
         ResponseEntity<String> res = controller.getRowCount();
         ItemCount count = MessageParser.unmarshal(ItemCount.class, res.getBody());
         int size = Long.valueOf(count.getCount()).intValue();
-        List<Passenger> items = controller.query(size, 0);
+        List<Passenger> items = controller.fetch(size, 0);
         items.stream().forEach(passenger -> System.out.println(passenger.getName()));
     }
 
