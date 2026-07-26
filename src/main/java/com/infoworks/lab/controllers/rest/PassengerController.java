@@ -7,6 +7,7 @@ import com.infoworks.lab.domain.models.ItemCount;
 import com.infoworks.lab.services.iServices.PassengerService;
 import com.infoworks.sql.executor.QueryExecutor;
 import com.infoworks.sql.query.pagination.SearchQuery;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -96,6 +97,27 @@ public class PassengerController {
     @Resource(name = "executor")
     private QueryExecutor executor;
 
+    /*@ApiOperation(
+            value = "SearchQuery Examples",
+            //operators = {"EQUAL", "NOTEQUAL", "LIKE", "NOT_LIKE", "GREATER_THAN", "GREATER_THAN_OR_EQUAL", "LESS_THAN", "LESS_THAN_OR_EQUAL"},
+            notes = "Example request:\n" +
+                    "{\n" +
+                    "  \"descriptors\": [],\n" +
+                    "  \"page\": 0,\n" +
+                    "  \"payload\": \"string\",\n" +
+                    "  \"properties\": [\n" +
+                    "    {\n" +
+                    "      \"key\": \"age\",\n" +
+                    "      \"logic\": \"AND\",\n" +
+                    "      \"nextKey\": null,\n" +
+                    "      \"operator\": \"GREATER_THAN_OR_EQUAL\",\n" +
+                    "      \"type\": \"INT\",\n" +
+                    "      \"value\": \"21\"\n" +
+                    "    }\n" +
+                    "  ],\n" +
+                    "  \"size\": 10\n" +
+                    "}"
+    )*/
     @PostMapping("/search")
     public List<Passenger> search(@RequestBody SearchQuery query
             , @RequestHeader(value = "X-Tenant", required = false) String tenant) {
