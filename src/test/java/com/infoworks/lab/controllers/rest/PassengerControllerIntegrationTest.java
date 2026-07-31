@@ -60,7 +60,7 @@ public class PassengerControllerIntegrationTest {
     @Value("${app.db.name}")
     private String dbName;
 
-    @Value("${app.db.schema.default}")
+    @Value("${app.db.default-schema}")
     private String schema;
 
     @Autowired

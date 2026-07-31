@@ -16,7 +16,7 @@ public class MultiplexConnectionProvider implements MultiTenantConnectionProvide
     private String defaultTenant;
 
     public MultiplexConnectionProvider(DataSource dataSource
-            , @Value("${app.db.schema.default}") String defaultTenant) {
+            , @Value("${app.db.default-schema}") String defaultTenant) {
         this.dataSource = dataSource;
         this.defaultTenant = defaultTenant;
     }

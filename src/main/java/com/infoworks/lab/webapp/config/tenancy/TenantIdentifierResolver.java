@@ -9,7 +9,7 @@ public class TenantIdentifierResolver implements CurrentTenantIdentifierResolver
 
     private String defaultTenant;
 
-    public TenantIdentifierResolver(@Value("${app.db.schema.default}") String defaultTenant) {
+    public TenantIdentifierResolver(@Value("${app.db.default-schema}") String defaultTenant) {
         this.defaultTenant = defaultTenant;
     }
 

@@ -27,7 +27,7 @@ public class PassengerController {
 
     public PassengerController(PassengerService service
             , ObjectMapper mapper
-            , @Value("${app.db.schema.default}") String defaultTenant) {
+            , @Value("${app.db.default-schema}") String defaultTenant) {
         this.service = service;
         this.mapper = mapper;
         this.defaultTenant = defaultTenant;
