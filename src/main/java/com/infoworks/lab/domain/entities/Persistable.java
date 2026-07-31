@@ -8,7 +8,7 @@ import javax.persistence.*;
 public class Persistable<ID, VERSION> extends Entity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private ID id;
 
     @Version @JsonIgnore
