@@ -22,19 +22,22 @@ public class StartupConfig implements CommandLineRunner {
 
     private String serverPort;
     private String activeDriverClass;
-    private Boolean isH2ConsoleEnabled;
+    private String isH2ConsoleEnabled;
     private String h2ConsolePath;
+    private String multiTenancyEnabled;
     private FlywayConfig flywayConfig;
 
     public StartupConfig(@Value("${server.port}") String serverPort
             , @Value("${spring.datasource.driver-class-name}") String activeDriverClass
-            , @Value("${spring.h2.console.enabled}") Boolean isH2ConsoleEnabled
+            , @Value("${spring.h2.console.enabled}") String isH2ConsoleEnabled
             , @Value("${spring.h2.console.path}") String h2ConsolePath
+            , @Value("${app.db.multi.tenancy.enabled}") String multiTenancyEnabled
             , FlywayConfig flywayConfig) {
         this.serverPort = serverPort;
         this.activeDriverClass = activeDriverClass;
         this.isH2ConsoleEnabled = isH2ConsoleEnabled;
         this.h2ConsolePath = h2ConsolePath;
+        this.multiTenancyEnabled = multiTenancyEnabled;
         this.flywayConfig = flywayConfig;
     }
 
@@ -53,11 +56,11 @@ public class StartupConfig implements CommandLineRunner {
         System.out.println("Startup Done...");
         System.out.println(String.format("http://localhost:%s/swagger-ui.html", serverPort));
         if (activeDriverClass.equalsIgnoreCase(JDBCDriverClass.H2_EMBEDDED.toString())
-                && isH2ConsoleEnabled){
+                && Boolean.parseBoolean(isH2ConsoleEnabled)){
             System.out.println(String.format("http://localhost:%s%s", serverPort, h2ConsolePath));
         }
-        //Start tenant migration:
-        flywayConfig.executeFlywayMigration();
+        //Start flyway migration (only if multi-tenancy-is-enabled):
+        if(Boolean.parseBoolean(multiTenancyEnabled)) flywayConfig.executeFlywayMigration();
     }
 
     private void batchInsertInto(Class<? extends Entity> entityType
